@@ -1,0 +1,299 @@
+# include <iostream> 
+# include <time.h>  
+# include <stdio.h> 
+# include <windows.h>
+# include <conio.h> 
+# include <math.h> 
+# include <io.h> 
+# include <stdlib.h> 
+#include <string>
+
+using namespace std;
+
+struct coor {
+	int x;
+	int y;
+};
+
+void clear(int a, int b)
+{
+	HANDLE hOut;
+	COORD Position;
+	hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+	Position.X = a;
+	Position.Y = b;
+	SetConsoleCursorPosition(hOut, Position);
+	int len = 0, x, y = 200;
+	string g = "$";
+	len = g.length();
+	HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(console, y);
+	cout << g;
+}
+
+void reen()
+{
+	for (int i = 0; i <= 20; i++)
+	{
+		for (int j = 0; j <= 28; j++)
+		{
+			if (i == 0 || j == 0 || i == 20 || j == 28)
+				cout << '!';
+			else
+				cout << " ";
+		}
+		cout << "\n";
+	}
+}
+
+void clearscreen(int x, int y)
+{
+	HANDLE hOut;
+	COORD Position;
+	hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+	Position.X = x;
+	Position.Y = y;
+	SetConsoleCursorPosition(hOut, Position);
+	cout << '*';
+}
+
+
+void main()
+{
+	char ka;
+	int g = 2, q, t, fop = 0, jeylo = 0, pip = 0, level = 1, n = 200, clock = 300, m = 0, u, h = 0;
+	int con = 1;
+	coor vb[500];
+	coor vb1[500];
+	coor d1;
+	d1.x = 4;
+	d1.y = 1;
+	vb1[0].x = d1.x;
+	vb1[0].y = d1.y;
+	ka = 'd';
+
+	//Привітання
+	do
+	{
+		system("cls");
+		cout << "((((((((((((((   Vcompany  Present   )))))))))))" << "\n\n";
+		cout << "                  GAME <Povzyn> ";
+		h++;
+		//_sleep(30);
+	} while (h != 50);
+	//Привітання
+
+	do
+	{
+		system("color A1");
+		fop = 0;
+		//Промалювання рамки
+		system("cls");
+		reen();
+		//Промалювання рамки
+
+		//Якщо таймер рівний нулю виходим з циклу і кажем що гравець програв
+		if (clock == 0)
+		{
+			u = 1;
+			break;
+		}
+		//Якщо таймер рівний нулю виходим з циклу і кажем що гравець програв
+
+		//Якщо гравець зібрав 20 $ то ми розриваємо цикл і пишем що він виграв
+		if (con == 20)
+		{
+			u = 2;
+			break;
+		}
+		//Якщо гравець зібрав 20 $ то ми розриваємо цикл і пишем що він виграв
+
+		//Перехід на Рівень 2
+		if (con == 10 && m == 0)
+		{
+			level++;
+			n = n - 50;
+			clock = 250;
+			m++;
+		}
+		//Перехід на Рівень 2
+
+		//Перехід на Рівень 3
+		if (con == 15 && m == 1)
+		{
+			level++;
+			n = n - 50;
+			clock = 250;
+			m++;
+		}
+		//Перехід на Рівень 3
+
+		cout << "You earn dolars :" << con << "\n";
+		cout << "Level   " << level << "\n";
+		cout << "Clock   " << clock << "\n";
+
+		//Перший раз присвоюються координати Х У долару $
+		if (g == 2)
+		{
+			q = rand() % 25 + 2;
+			t = rand() % 17 + 2;
+		}
+		//Перший раз присвоюються координати Х У долару $
+
+		//Кожен раз циклу промальовується $
+		if (g>2)
+			clear(q, t);
+		//Кожен раз циклу промальовується $
+
+		//Перевіряєм чи координати змійки не співпали з коорденатами $
+		if (q == d1.x&&t == d1.y&&g>5)
+		{
+			fop = 1;
+			con++;
+		}
+		//Перевіряєм чи координати змійки не співпали з коорденатами $
+
+		//Перевіряєм чи Х коордената $ не попадає на змійку якщо нє присвоюєм його 
+		if (fop == 1)
+		{
+			jeylo = 1;
+			do
+			{
+				pip = 1;
+				q = rand() % 25 + 2;
+				t = rand() % 17 + 2;
+				for (int i = 0; i<con; i++)
+				{
+					if (q == vb[i].x&&t == vb[i].y)
+					{
+						break;
+					}
+					if (pip == 1)
+						jeylo = 1;
+					else
+						jeylo = 0;
+				}
+			} while (jeylo != 1);
+		}
+		//Перевіряєм чи Х коордената $ не попадає на змійку якщо нє присвоюєм його 
+
+		//Перевіряєм голову змійки чи вона не вийшла за рамку
+		if (g>4)
+		{
+			if (d1.x == 0)
+				d1.x = 27;
+			if (d1.x == 28)
+				d1.x = 1;
+			if (d1.y == 0)
+				d1.y = 19;
+			if (d1.y == 20)
+				d1.y = 1;
+		}
+		//Перевіряєм голову змійки чи вона не вийшла за рамку
+
+		//Блок присвоєння і вивод координат
+		for (int i = 0; i < con; i++)
+		{
+			vb1[i].x = vb[i].x;
+			vb1[i].y = vb[i].y;
+		}
+		if (_kbhit() != 0)
+		{
+			ka = _getch();
+
+			switch (ka)
+			{
+			case 'a':
+			{
+				vb[0].x = d1.x--;
+				vb[0].y = d1.y;
+				break;
+			}
+			case 'd':
+			{
+				vb[0].x = d1.x++;
+				vb[0].y = d1.y;
+				break;
+			}
+			case 'w':
+			{
+				vb[0].x = d1.x;
+				vb[0].y = d1.y--;
+				break;
+			}
+			case 's':
+			{
+				vb[0].x = d1.x;
+				vb[0].y = d1.y++;
+				break;
+			}
+			}
+			for (int i = 0; i <= con; i++)
+			{
+				if (i > 0) {
+					vb[i].x = vb1[i - 1].x;
+					vb[i].y = vb1[i - 1].y;
+				}
+			}
+		}
+		else
+		{
+			switch (ka)
+			{
+			case 'a':
+			{
+				vb[0].x = d1.x--;
+				vb[0].y = d1.y;
+				break;
+			}
+			case 'd':
+			{
+				vb[0].x = d1.x++;
+				vb[0].y = d1.y;
+				break;
+			}
+			case 'w':
+			{
+				vb[0].x = d1.x;
+				vb[0].y = d1.y--;
+				break;
+			}
+			case 's':
+			{
+				vb[0].x = d1.x;
+				vb[0].y = d1.y++;
+				break;
+			}
+			}
+			for (int i = 0; i < con; i++)
+			{
+				if (i > 0) {
+					vb[i].x = vb1[i - 1].x;
+					vb[i].y = vb1[i - 1].y;
+				}
+			}
+		}
+		for (int i = 0; i < con; i++)
+		{
+			clearscreen(vb[i].x, vb[i].y);
+		}
+		//Блок присвоєння і вивод координат
+
+		g++;
+		clock--;
+		Sleep(n);
+	} while (g<1000000);
+
+	system("cls");
+	if (u == 1)
+	{
+		cout << "<<<<<   You Loose    >>>>>" << "\n";
+	}
+	if (u == 2)
+	{
+		cout << "<<<<<   You WIN !!!   >>>>>" << "\n";
+		cout << "     You are real man  ";
+	}
+	cin >> u;
+	cout << "\n\n\n";
+}
